@@ -20,8 +20,17 @@ public class Homework17 {
 
 
 	public static boolean problem1(int start, int[] nums, int target) {
-		return false;
-	}
+		if(target == 0){
+	  	return true;
+		}
+	  if(start == nums.length){
+	  	return false;
+		}
+	  if(problem1(start + 1, nums, target - nums[start])){
+	  	return true;
+		}
+	  return problem1(start + 1, nums, target);
+}
 
 	/* Given an array of ints, is it possible to choose a
 	 * group of some of the ints, beginning at the start
@@ -35,8 +44,21 @@ public class Homework17 {
 	 */
 
 	 public static boolean problem2(int start, int[] nums, int target) {
-		 return false;
+		 if(start == nums.length){
+			 if(target == 0){
+  			return true;
+			}
+  	return false;
  	}
+ 	if(nums[start] == 6){
+ 		return problem2(start + 1, nums, target - nums[start]);
+	}
+  if(problem2(start + 1, nums, target - nums[start])){
+  	return true;
+	}
+  return problem2(start + 1, nums, target);
+}
+
 
 	/* Given an array of ints, is it possible to divide the
 	 * ints into two groups, so that the sums of the two
@@ -52,11 +74,17 @@ public class Homework17 {
 	 */
 
 	public static boolean problem3(int[] nums) {
-		return false;
+		return problem3(nums, 0, 0);
 	}
 
-	public static boolean problem3(/* parameters */) {
-		return false;
+	public static boolean problem3(int[] nums, int i, int balance) {
+		if(i == nums.length){
+			return (balance == 0);
+		}
+	if(problem3(nums, i + 1, balance + nums[i])){
+		return true;
+	}
+	return problem3(nums, i + 1, balance - nums[i]);
 	}
 
 
@@ -77,8 +105,26 @@ public class Homework17 {
 	 */
 
 	public static boolean problem4(int start, int[] nums, int target) {
-		return false;
+		if(start >= nums.length){
+		return target == 0;
 	}
+
+	int i = start;
+	int sum = 0;
+
+while(i < nums.length && nums[start] == nums[i]) {
+		sum += nums[i];
+		i++;
+}
+
+if(problem4(i, nums, target - sum)){
+		return true;
+	}
+if(problem4(i, nums, target)){
+		return true;
+	}
+return false;
+}
 
 	/* Given an array of ints, is it possible to divide
 	 * the ints into two groups, so that the sum of one
@@ -95,12 +141,19 @@ public class Homework17 {
 	 */
 
 	public static boolean problem5(int[] nums) {
-		return false;
+		return problem5(nums, 0, 0, 0);
 	}
 
-	public static boolean problem5(/* parameters */) {
-		return false;
+	public static boolean problem5(int[] nums, int i, int group1, int group2) {
+		if(i == nums.length){
+		return (group1 % 2 == 1 && group2 % 10 == 0 || group2 % 2 == 1 && group1 % 10 == 0);
 	}
+	if(problem5(nums, i + 1, group1 + nums[i], group2)){
+		return true;
+	}
+	return problem5(nums, i + 1, group1, group2 + nums[i]);
+}
+
 
 	public static void main(String[] args) {
 		boolean passed = true;
